@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Speedompteur</string>
+    <string name="uniteDeMesure">km/h</string>
+</resources>
