@@ -3,5 +3,11 @@
     android:shape="ring"
     android:thickness="20sp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#B9E17E28"  />
+    <solid android:color="#CC8202"  />
+    <gradient
+        android:type="linear"
+        android:angle="0"
+        android:startColor="#F64D19"
+        android:centerColor="#f6ee19"
+        android:endColor="#115ede" />
 </shape>

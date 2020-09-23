@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,11 +68,24 @@
             />
 
         <ProgressBar
+            android:id="@+id/progressBar0"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="400sp"
+            android:layout_height="400sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:max="180"
+            android:progress="90"
+            android:rotation="180"
+            android:progressDrawable="@drawable/custom_circular_opac" />
+
+        <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="350sp"
-            android:layout_height="500sp"
+            android:layout_width="400sp"
+            android:layout_height="400sp"
 
+            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
             android:max="500"
             android:progress="0"

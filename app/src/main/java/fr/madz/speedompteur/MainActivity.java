@@ -21,6 +21,9 @@ public class MainActivity extends Activity implements LocationListener {
 
     TextView tv_vitesse;
     ProgressBar progressBar;
+    LocationManager locationManager;
+    LocationRequest locationRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,14 +42,12 @@ public class MainActivity extends Activity implements LocationListener {
         }
         this.onLocationChanged(null);
 
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1500);
-        locationRequest.setFastestInterval(500);
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(2000);
+        locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         progressBar = this.findViewById(R.id.progressBar);
-
-
     }
 
     @Override
@@ -68,16 +69,48 @@ public class MainActivity extends Activity implements LocationListener {
 
             progressBar.setProgress(int_speed);
         }
-
     }
 
     @SuppressLint("MissingPermission")
     private void doStuff() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if(locationManager != null){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
         }
         Toast.makeText(this,"Waiting GPS Connection!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doStuff();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locationManager = null;
+    }
+
+    @Override
+    protected void onStop() {
+        abortLocationFetching();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        locationManager = null;
+        abortLocationFetching();
+        super.onDestroy();
+    }
+
+    public void abortLocationFetching() {
+        // Remove the listener you previously added
+        if (locationManager != null && locationRequest != null) {
+                locationManager.removeUpdates(this);
+                locationManager = null;
+        }
     }
 
     @Override
